@@ -17,13 +17,13 @@
     因此添加开始计步与打卡按钮，采用手动开始计步的方式。开始计步即从点击事件触发后开始今日的计步，打卡后保存从上一次开始计步为止的步数，并可以查看运动记录。将计步服务设置为前台Service减少计步进程被杀死的几率。
 
   ## 关键
-    ### Sensor 
+   ### Sensor 
     Android 4.4以上的设备开始支持计步传感器，当注册的传感器发生新事件时会触发onSensorChanged(SensorEvent event) 方法。
   
-    ### Service 
+   ### Service 
     Service（服务）是Android中实现后台运行的解决方案，适合执行不需要与用户交互而且还要求长期运行的任务。服务一般实在后台运行的，由于优先级较低当系统  内存不足时会被回收，使用前台服务可以使服务更长时间保持运行状态。
   
-    ### SharedPreferenced 
+   ### SharedPreferenced 
   Android系统中轻量级存储数据的一种方式，它的本质是基于XML文件存储Key-Value键值对数据。
 
 
