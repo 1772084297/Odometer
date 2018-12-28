@@ -1,11 +1,9 @@
 package com.example.dong.odometer;
 
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -19,12 +17,7 @@ import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.security.auth.login.LoginException;
 
 public class StepService extends Service implements SensorEventListener {
     private String TAG = "StepService";
@@ -69,7 +62,7 @@ public class StepService extends Service implements SensorEventListener {
         super.onCreate();
         Log.e(TAG, "onCreated executed");
         initSensor();
-        initTodayDate();
+        initData();
         initNotification();
         startTimeCountDown();
     }
@@ -114,11 +107,11 @@ public class StepService extends Service implements SensorEventListener {
     }
 
     //获取当天的步数 从数据库中获取步数并更新UI
-    public void initTodayDate() {
+    public void initData() {
         current_step = getCurrentStep();
         start_step = getStartStep();
 
-        updateNotification();
+        today_step = current_step-start_step;
     }
 
     //当接收到日期改变的广播时调用
@@ -145,25 +138,13 @@ public class StepService extends Service implements SensorEventListener {
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
         Notification notification = new NotificationCompat.Builder(this)
                 .setContentTitle("计步器")
-                .setContentText("点击进入应用")
+                .setContentText("点击进入应用查看详情")
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.mipmap.icon_shoe)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon_launcher))
                 .setContentIntent(pIntent)
                 .build();
         startForeground(1, notification);
-    }
-
-    //更新通知栏的步数变化
-    public void updateNotification() {
-
-    }
-
-    /*-------------------------------------广播----------------------------------------------*/
-
-    //注册广播
-    public void initBroadcastReceiver() {
-
     }
 
     /*-------------------------------------计时器函数----------------------------------------------*/

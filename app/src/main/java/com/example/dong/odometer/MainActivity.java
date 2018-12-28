@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.Space;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.hanks.htextview.fade.FadeTextView;
 
@@ -153,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements onStepChangedList
                 break;
             case R.id.finish_count:
                 try {
+                    // TODO: 2018/12/28  演示
                     storgeJson();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -168,6 +171,31 @@ public class MainActivity extends AppCompatActivity implements onStepChangedList
                 popDialog();
                 break;
         }
+
+    }
+
+
+    //没有即使对数据存档导致演示时数据太少，为此hardcode数据方便演示
+    private void storgeTestJson() throws JSONException {
+        JSONArray jsonArray = new JSONArray();
+
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("step",9974);
+        jsonObject1.put("date","12-25");
+        jsonArray.put(jsonObject1);
+
+        JSONObject jsonObject2 = new JSONObject();
+        jsonObject2.put("step",10251);
+        jsonObject2.put("date","12-26");
+        jsonArray.put(jsonObject2);
+
+        JSONObject jsonObject3 = new JSONObject();
+        jsonObject3.put("step",7558);
+        jsonObject3.put("date","12-27");
+        jsonArray.put(jsonObject3);
+
+        SPUtils.getInstance(this).putString("StepRecord", jsonArray.toString());
+
 
     }
 

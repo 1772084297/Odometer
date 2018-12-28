@@ -37,7 +37,7 @@ public class StepView extends View {
     private int curFootNumPre;
 
     //角度
-    private int angle;
+    private float angle;
     //重复次数
     private int count = 2;
 
@@ -53,6 +53,7 @@ public class StepView extends View {
     }
 
 
+    //三个构造函数
     public StepView(Context context) {
         this(context, null);
     }
@@ -99,8 +100,10 @@ public class StepView extends View {
         init();
     }
 
+    //初始化画笔与动画集
     private void init() {
-        paint = new Paint(); //画笔 全部抗锯齿
+        //画笔 全部抗锯齿
+        paint = new Paint();
         paint.setAntiAlias(true);
 
         arcPaint = new Paint();
@@ -169,9 +172,14 @@ public class StepView extends View {
         canvas.drawCircle((float) (widthBg / 2 + ra_out_circle * Math.cos(angle * 3.14 / 180)), (float) (heightBg / 2 + ra_out_circle * Math.sin(angle * 3.14 / 180)), 10, pointPaint);
 
         //画竖线
-        drawLines(canvas);
+        paint.setColor(line_color);
+        paint.setStrokeWidth(4);
+        for (int i = 0; i < 360; i++) {
+            canvas.drawLine(widthBg / 2, (heightBg / 2 - ra_inner_circle), widthBg / 2, (heightBg / 2 - ra_inner_circle + line_length), paint);
+            canvas.rotate(1, widthBg / 2, heightBg / 2);
+        }
 
-        //画圆弧
+        //绘制刻度
         arcPaint.setStyle(Paint.Style.STROKE);
         arcPaint.setStrokeWidth(30);
         arcPaint.setColor(ring_color);
@@ -206,18 +214,12 @@ public class StepView extends View {
 
     }
 
-    private void drawLines(Canvas canvas) {
-        paint.setColor(line_color);
-        paint.setStrokeWidth(4);
-        for (int i = 0; i < 360; i++) {
-            canvas.drawLine(widthBg / 2, (heightBg / 2 - ra_inner_circle), widthBg / 2, (heightBg / 2 - ra_inner_circle + line_length), paint);
-            canvas.rotate(1, widthBg / 2, heightBg / 2);
-        }
-    }
+
 
     //初始化的动画
     private void startAnim() {
         int step_count = myFootNum > 8000 ? 8000 : myFootNum;
+
         //小圆点动画
         final ValueAnimator dotAnimator = ValueAnimator.ofInt(-90 , (step_count * 360 / 8000 - 90));
 
@@ -260,7 +262,7 @@ public class StepView extends View {
     private void resetAnim(int lastFootNum) {
         int last_step_count=lastFootNum>8000?8000:lastFootNum;
         int step_count = myFootNum > 8000 ? 8000 : myFootNum;
-/*        //小圆点动画
+        //小圆点动画
         final ValueAnimator dotAnimator = ValueAnimator.ofInt((last_step_count*360/8000-90), (step_count * 360 / 8000 - 90));
         dotAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -269,20 +271,9 @@ public class StepView extends View {
                 postInvalidate();
             }
         });
-        dotAnimator.setInterpolator(new LinearInterpolator());*/
-
-        //小圆点动画
-        final ValueAnimator dotAnimator = ValueAnimator.ofFloat(0,1.0f);
-        dotAnimator.setDuration(1000);
         dotAnimator.setInterpolator(new LinearInterpolator());
-        dotAnimator.setRepeatCount(-1);
-        dotAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
 
-                invalidate();
-            }
-        });
+
 
         //步数动画
         final ValueAnimator walkAnimator = ValueAnimator.ofInt(last_step_count*360/8000, (step_count * 360 / 8000));
@@ -306,9 +297,11 @@ public class StepView extends View {
         });
 
         animatorSet.setDuration(1000);
-        animatorSet.playTogether(walkAnimator, arcAnimator, dotAnimator);
+        animatorSet.playTogether(walkAnimator, arcAnimator,dotAnimator);
         animatorSet.start();
+
     }
+
 
 
     public void reSet(int lastNum,int footNum) {
