@@ -10,7 +10,7 @@
     增添其他功能
     
 <p align="center">
-    <img src="https://github.com/1772084297/Odometer/blob/master/image1.png" alt="Sample"  width="250" height="140">
+    <img src="https://github.com/1772084297/Odometer/blob/master/image1.png" alt="Sample"  width="250" height="400">
     <p align="center">
         <em>主页</em>
     </p>
