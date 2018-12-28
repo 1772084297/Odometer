@@ -9,7 +9,7 @@
     修改主页面的自定义控件，实现小圆圈一直环绕的效果
     增添其他功能
     
-![image](https://github.com/1772084297/Odometer/blob/master/image1.png)    
+![image](https://github.com/1772084297/Odometer/blob/master/image1.png=200x300)    
 ## 提交记录
 -2018/12/15
     第一次提交，能基本实现正常情况下的功能，对于传感器数据的处理存在问题，继续完善
