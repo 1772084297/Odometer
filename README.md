@@ -12,14 +12,14 @@
 <p align="center">
     <img src="https://github.com/1772084297/Odometer/blob/master/image1.png" alt="Sample"  width="250" height="500">
     <p align="center">
-        <em>主页</em>
+        <em>主页图片</em>
     </p>
 </p>
 
 <p align="center">
     <img src="https://github.com/1772084297/Odometer/blob/master/image2.png" alt="Sample"  width="250" height="400">
     <p align="center">
-        <em>主页</em>
+        <em>列表页图片</em>
     </p>
 </p>
 
